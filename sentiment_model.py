@@ -6,7 +6,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation
 from keras.preprocessing.text import Tokenizer
 import matplotlib.pyplot as plt
-
+import pandas as pd
 
 # setting random seed
 np.random.seed(18)
@@ -31,7 +31,7 @@ print('y test shape: {}'.format(y_test.shape))
 # Building the model architecture
 model = Sequential()
 model.add(Dense(400, activation='relu', input_dim=1000))
-model.add(Dropout(0.4))
+model.add(Dropout(.4))
 model.add(Dense(num_classes, activation='softmax'))
 
 print(model.summary())
@@ -43,10 +43,11 @@ model.compile(loss='categorical_crossentropy',
 # Running and evaluating the model
 hist = model.fit(x_train, y_train,
           batch_size=100,
-          epochs=10,
+          epochs=5,
           validation_data=(x_test, y_test),
           verbose=2)
 
 # Model score in terms of Accuracy
 score = model.evaluate(x_test, y_test, verbose=0)
 print("Accuracy: ", score[1])
+
